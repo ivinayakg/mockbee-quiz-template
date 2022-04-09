@@ -26,7 +26,7 @@ export function makeServer({ environment = "development" } = {}) {
     },
     environment,
     models: {
-      quizes: Model,
+      quiz: Model,
       category: Model,
       user: Model,
       totalScore: Model,
@@ -39,7 +39,8 @@ export function makeServer({ environment = "development" } = {}) {
       // disballing console logs from Mirage
       server.logging = false;
       quizes.forEach((item) => {
-        server.create("quizes", { ...item });
+        server.create("quiz", item);
+        // console.log(item);
       });
 
       users.forEach((item) =>

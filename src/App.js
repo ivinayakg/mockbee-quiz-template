@@ -1,10 +1,11 @@
 import "./App.css";
 import logo from "./logo.png";
+import Mockman from "mockman-js";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} alt="mockBee logo" width="180" height="180" />
         <h1 className="brand-title">
           Welcome to <span>mockBee!</span>
@@ -35,7 +36,8 @@ function App() {
             Contribute
           </a>
         </div>
-      </header>
+      </header> */}
+      <Mockman colorScheme="dark" />
     </div>
   );
 }
