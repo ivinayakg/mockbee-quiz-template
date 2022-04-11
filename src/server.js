@@ -2,6 +2,7 @@ import { Server, Model, RestSerializer } from "miragejs";
 import {
   loginHandler,
   signupHandler,
+  checkToken,
 } from "./backend/controllers/AuthController";
 import {
   getAllCategoriesHandler,
@@ -16,7 +17,7 @@ import {
 } from "./backend/controllers/QuizesController";
 
 import { categories } from "./backend/db/categories";
-import { quizes } from "./backend/db/quizes";
+import { quizzes } from "./backend/db/quizzes";
 import { users } from "./backend/db/users";
 
 export function makeServer({ environment = "development" } = {}) {
@@ -38,7 +39,7 @@ export function makeServer({ environment = "development" } = {}) {
     seeds(server) {
       // disballing console logs from Mirage
       server.logging = false;
-      quizes.forEach((item) => {
+      quizzes.forEach((item) => {
         server.create("quiz", item);
         // console.log(item);
       });
@@ -61,11 +62,14 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/auth/signup", signupHandler.bind(this));
       this.post("/auth/login", loginHandler.bind(this));
 
+      //check token (private)
+      this.post("/auth/checktoken", checkToken.bind(this));
+
       // quizes routes (public)
-      this.get("/quizes", getAllQuizesHandler.bind(this));
-      this.get("/quizes/:quizId", getSingleQuizHandler.bind(this));
+      this.get("/quizzes", getAllQuizesHandler.bind(this));
+      this.get("/quizzes/:quizId", getSingleQuizHandler.bind(this));
       this.get(
-        "/quizes/:quizId/:questionId",
+        "/quizzes/:quizId/:questionId",
         getSingleQuizQuestionAnswer.bind(this)
       );
 
@@ -74,8 +78,8 @@ export function makeServer({ environment = "development" } = {}) {
       this.get("/categories/:categoryId", getCategoryHandler.bind(this));
 
       // quizes routes (private)
-      this.post("/quizes", addQuizHandler.bind(this));
-      this.post("/quizes/result", postQuizResultHandler.bind(this));
+      this.post("/quizzes", addQuizHandler.bind(this));
+      this.post("/quizzes/result", postQuizResultHandler.bind(this));
     },
   });
 }

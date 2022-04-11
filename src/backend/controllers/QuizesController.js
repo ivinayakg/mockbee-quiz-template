@@ -3,13 +3,13 @@ import { requiresAuth } from "../utils/authUtils";
 import { v4 as uuid } from "uuid";
 
 export const getAllQuizesHandler = function () {
-  return new Response(200, {}, { quizes: this.db.quiz });
+  return new Response(200, {}, { quizes: this.db.quizzes });
 };
 
 export const getSingleQuizHandler = function (schema, request) {
   const Id = request.params.quizId;
   try {
-    const quiz = schema.quiz.findBy({ _id: Id });
+    const quiz = schema.quizzes.findBy({ _id: Id });
     return new Response(200, {}, { quiz });
   } catch (error) {
     return new Response(
@@ -26,9 +26,9 @@ export const getSingleQuizQuestionAnswer = function (schema, request) {
   const quizId = request.params.quizId;
   const questionId = request.params.questionId;
   try {
-    const quiz = schema.quiz.findBy({ _id: quizId });
-    const question = quiz.mcqs.find((question) => question._id === questionId);
-    return Response(200, {}, { question });
+    const quiz = schema.quizzes.findBy({ _id: quizId });
+    const question = quiz.mcqs.find((item) => item._id === questionId);
+    return new Response(200, {}, { question });
   } catch (error) {
     return new Response(
       500,
@@ -52,19 +52,20 @@ export const postQuizResultHandler = function (schema, request) {
         }
       );
     }
-    const { score, quizTaken } = JSON.parse(request.body);
-    if (!schema.quiz.findBy({ _id: quizTaken._id })) {
-      return Response(
+    const { score, quizTaken } = JSON.parse(request.requestBody);
+    if (!schema.quizzes.findBy({ _id: quizTaken._id })) {
+      return new Response(
         404,
         {},
         { result: "this quiz is not present in the server" }
       );
     }
-    const user = schema.user.findBy({ _id: userId });
+    const user = schema.users.findBy({ _id: userId });
     const newUserScore =
       Number(score) > 0
         ? Number(score) + Number(user.totalScore.current)
         : Number(user.totalScore.current);
+    console.log(newUserScore);
     const knowledgeLevel =
       newUserScore >= 15
         ? newUserScore >= 25
@@ -73,7 +74,7 @@ export const postQuizResultHandler = function (schema, request) {
         : "Rookie";
     const quizTakenByUser = user.quizTaken;
     quizTakenByUser.push({ ...quizTaken });
-    this.db.user.update(
+    this.db.users.update(
       { _id: userId },
       {
         totalScore: { current: newUserScore },
@@ -81,7 +82,7 @@ export const postQuizResultHandler = function (schema, request) {
         quizTaken: quizTakenByUser,
       }
     );
-    return Response(201, {}, { user });
+    return new Response(201, {}, { user });
   } catch (error) {
     return new Response(
       500,
@@ -105,9 +106,13 @@ export const addQuizHandler = function (schema, request) {
         }
       );
     }
-    const { quiz } = JSON.parse(request.body);
+    const { quiz } = JSON.parse(request.requestBody);
     if (quiz.mcqs.length <= 0 || !quiz.mcqs || !quiz.title) {
-      return Response(500, {}, { result: "The data format is not supported" });
+      return new Response(
+        500,
+        {},
+        { result: "The data format is not supported" }
+      );
     }
     const newQuiz = {
       _id: uuid(),
@@ -116,8 +121,8 @@ export const addQuizHandler = function (schema, request) {
       catergoryName: "",
       ...quiz,
     };
-    const createdQuiz = schema.quiz.create(newQuiz);
-    return Response(201, {}, { createdQuiz });
+    const createdQuiz = schema.quizzes.create(newQuiz);
+    return new Response(201, {}, { createdQuiz });
   } catch (error) {
     return new Response(
       500,

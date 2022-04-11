@@ -102,11 +102,7 @@ export const checkToken = function (schema, request) {
   const userId = requiresAuth.call(this, request);
   try {
     if (!userId) {
-      return Response(
-        404,
-        {},
-        { result: "User Not available / Token not valid" }
-      );
+      new Response(404, {}, { result: "User Not available / Token not valid" });
     }
   } catch (error) {
     return new Response(
