@@ -43,8 +43,8 @@ It has catergories API which works identical to any catergory API you can find t
 ## Quizzes
 
 ### Data Structure Of Quiz in the backend
-this structure needed to be followed in the exact way only to get all the APIs working perfectly.
-(Note- you can use your custom data structure if want to there is no problem with that but keep in mind that the API for getting a question by if using the route '/api/quizzes/:quizId/:questionId' will not work) 
+this structure needed to be followed in the exact way only to get all the APIs working perfectly.<br>
+`(Note- you can use your custom data structure if want to there is no problem with that but keep in mind that the API for getting a question by if using the route '/api/quizzes/:quizId/:questionId' will not work)`
 ```
 {
   _id: "3fe39675-140b-4075-82f3-949a4dc95d18",
