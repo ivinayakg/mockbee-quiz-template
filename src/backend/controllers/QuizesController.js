@@ -65,7 +65,6 @@ export const postQuizResultHandler = function (schema, request) {
       Number(score) > 0
         ? Number(score) + Number(user.totalScore.current)
         : Number(user.totalScore.current);
-    console.log(newUserScore);
     const knowledgeLevel =
       newUserScore >= 15
         ? newUserScore >= 25
