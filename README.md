@@ -35,3 +35,35 @@ axios.post('/api/auth/checktoken', {
   }
 })
 `
+  
+## Catrergories
+It has catergories API which works identical to any catergory API you can find to mockbee, check [here](https://mockbee.netlify.app/docs/api/apps/e-commerce#1-get-apicategories) for reference.
+
+## Quizzes
+### Get All quizes
+API Route : '/api/quizzes'
+Type : 'GET'
+Request Headers : 'Default'
+Functionality: 'Get All Quizzes from the backend'
+Response : 
+  `
+  {
+    data : {
+      quizes
+    }
+  }
+  `
+  
+## Get Quiz By Id
+API Route : '/api/quizzes/:quizId'
+Type : 'GET'
+Request Headers : 'Default'
+Functionality: 'Get Quiz by id from the backend'
+Response : 
+  `
+  {
+    data : {
+      quiz
+    }
+  }
+  `
