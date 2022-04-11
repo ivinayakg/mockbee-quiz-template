@@ -4,7 +4,7 @@ This folder contains the Mock Backend created for Quiz App. It contains differen
 
 
 # Documentation for Quiz App
-This template is especially created with keeping in mind that people who are q=making a quiz app can ahve a temproroy running API without thinking about backend development.
+This template is especially created with keeping in mind that people who are making a quiz app can have a temporary running API without thinking about backend development.
 
 ### Note for fellow neog students
 (if not then skip this, not relevant for you)
