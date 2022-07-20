@@ -37,10 +37,10 @@ axios.post('/api/auth/checktoken', {
 })
 ```
   
-## Catrergories
+## Catergories
 It has catergories API which works identical to any catergory API you can find to mockbee, check [here](https://mockbee.netlify.app/docs/api/apps/e-commerce#1-get-apicategories) for reference.
 
-# Get All quizes of a particular catergory
+### Get All quizes of a particular catergory
 * API Route : '/api/categories/quizzes/:categoryId'
 * Type : 'GET'
 * Request Headers : 'Default'
