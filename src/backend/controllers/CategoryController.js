@@ -44,3 +44,24 @@ export const getCategoryHandler = function (schema, request) {
     );
   }
 };
+
+export const getAllCatergoryQuizesHandler = function (schema, request) {
+  const categoryId = request.params.categoryId;
+
+  try {
+    const category = schema.categories.findBy({ _id: categoryId });
+    const catergoryQuizes = this.db.quizzes.filter(
+      (quiz) =>
+        quiz.catergoryName.toLowerCase() === category.categoryName.toLowerCase()
+    );
+    return new Response(200, {}, { quizes: catergoryQuizes });
+  } catch (error) {
+    return new Response(
+      500,
+      {},
+      {
+        error,
+      }
+    );
+  }
+};

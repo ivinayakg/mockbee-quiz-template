@@ -7,6 +7,7 @@ import {
 import {
   getAllCategoriesHandler,
   getCategoryHandler,
+  getAllCatergoryQuizesHandler,
 } from "./backend/controllers/CategoryController";
 import {
   addQuizHandler,
@@ -76,6 +77,10 @@ export function makeServer({ environment = "development" } = {}) {
       // categories routes (public)
       this.get("/categories", getAllCategoriesHandler.bind(this));
       this.get("/categories/:categoryId", getCategoryHandler.bind(this));
+      this.get(
+        "/categories/quizzes/:categoryId",
+        getAllCatergoryQuizesHandler.bind(this)
+      );
 
       // quizes routes (private)
       this.post("/quizzes", addQuizHandler.bind(this));
