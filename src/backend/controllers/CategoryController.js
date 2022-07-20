@@ -54,7 +54,7 @@ export const getAllCatergoryQuizesHandler = function (schema, request) {
       (quiz) =>
         quiz.catergoryName.toLowerCase() === category.categoryName.toLowerCase()
     );
-    return new Response(200, {}, { quizes: catergoryQuizes });
+    return new Response(200, {}, { quizzes: catergoryQuizes });
   } catch (error) {
     return new Response(
       500,
